@@ -1,0 +1,32 @@
+h1 {
+  font-family: sans-serif;
+  font-weight: 400;
+}
+
+span.badge {
+  border-radius: 5px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.65rem;
+  height: 18px;
+  line-height: 25px;
+  margin-left: 0.5rem;
+  padding: 0.175rem 0.35rem;
+  vertical-align: baseline;
+}
+
+span.loading {
+  background-color: #4978be;
+}
+
+span.open {
+  background-color: #42b72a;
+}
+
+span.closed {
+  background-color: rgb(235, 235, 35);
+}
+
+span.error {
+  background-color: rgba(226, 50, 50, 0.753);
+}

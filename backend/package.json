@@ -1,0 +1,21 @@
+{
+  "author": "",
+  "description": "",
+  "license": "MIT",
+  "name": "kahvilat-backend",
+  "version": "1.0.0",
+  "main": "./public/main.js",
+  "scripts": {
+    "build-dev": "lein cljsbuild once dev",
+    "build-prod": "lein cljsbuild once prod",
+    "start-dev": "node target-dev/main.js",
+    "start": "node target-prod/main.js"
+  },
+  "dependencies": {
+    "@cljs-oss/module-deps": "^1.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "externs-generator": "^0.3.4",
+    "puppeteer": "^1.19.0"
+  }
+}
