@@ -28,8 +28,8 @@
 
 (defn get-is-open [id chan]
   (go (let [{:keys [status, body]} (<! (http/get (str BACKEND_ENDPOINT "/" id)))]
-        (if (= status 200)
-          (>! chan (if (= (get body "is_open") true) :is_open :is_closed))
+        (if (and (= status 200) (= (:status body) "OK"))
+          (>! chan (if (:is_open body) :is_open :is_closed))
           (>! chan :error)))))
 
 (defn update-place [item]
