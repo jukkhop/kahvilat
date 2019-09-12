@@ -33,8 +33,8 @@
 
                 :compiler {:main kahvilat-frontend.main
                            :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/kahvilat_frontend.js"
-                           :output-dir "resources/public/js/compiled/out"
+                           :output-to "public/js/compiled/kahvilat_frontend.js"
+                           :output-dir "public/js/compiled/out"
                            :source-map-timestamp true
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                            ;; https://github.com/binaryage/cljs-devtools
@@ -44,13 +44,13 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/kahvilat_frontend.js"
+                :compiler {:output-to "public/js/compiled/kahvilat_frontend.js"
                            :main kahvilat-frontend.main
                            :optimizations :advanced
                            :pretty-print false}}]}
 
   :figwheel {; watch and update CSS
-             :css-dirs ["resources/public/css"]
+             :css-dirs ["public/css"]
 
              ;; Start an nREPL server into the running figwheel process
              :nrepl-port 7889}
@@ -60,5 +60,5 @@
                    ;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
                    ;; need to add the compliled assets to the :clean-targets
-                   :clean-targets ^{:protect false} ["resources/public/js/compiled"
+                   :clean-targets ^{:protect false} ["public/js/compiled"
                                                      :target-path]}})
