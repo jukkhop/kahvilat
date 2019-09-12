@@ -1,6 +1,55 @@
-h1 {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+  justify-items: center;
+  margin: auto;
+  width: 100%;
+}
+
+div.container {
+  margin: auto;
+  text-align: center;
+}
+
+h1.title {
+  color: #303030;
   font-family: sans-serif;
+  font-size: 3.5rem;
   font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
+h3.subtitle {
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 1.75rem;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  align-items: center;
+  display: flex;
+  padding: 0.35rem 0rem;
+}
+
+span.name {
+  font-family: sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  min-width: 175px;
+  text-align: right;
+  text-transform: uppercase;
 }
 
 span.badge {
@@ -9,9 +58,11 @@ span.badge {
   font-family: sans-serif;
   font-size: 0.65rem;
   height: 18px;
-  line-height: 25px;
-  margin-left: 0.5rem;
-  padding: 0.175rem 0.35rem;
+  line-height: 18px;
+  margin-left: 0.75rem;
+  margin-right: 5rem;
+  min-width: 105px;
+  padding: 0rem 0.35rem;
   vertical-align: baseline;
 }
 

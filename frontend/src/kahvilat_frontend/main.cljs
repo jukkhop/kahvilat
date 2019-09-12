@@ -53,7 +53,7 @@
   (let [{:keys [open loading error id name]} item]
     ^{:key item}
     [:li
-     [:span name " "]
+     [:span.name name]
      (cond
        loading [:span.badge.loading "Loading ..."]
        error [:span.badge.error "Error while fetching"]
@@ -69,9 +69,9 @@
     (fn [x] [:ul (map place-component x)])}))
 
 (defn app []
-  [:div
-   [:h1 "kahvilat.info"]
-   [:h3 "Refresh in: " @update-secs]
+  [:div.container
+   [:h1.title "kahvilat.info"]
+   [:h3.subtitle "Refresh in: " @update-secs]
    [places-component @places-shared]])
 
 (reagent/render-component [app]
