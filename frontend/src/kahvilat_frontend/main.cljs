@@ -2,6 +2,7 @@
   (:require
    [cljs-http.client :as http]
    [cljs.core.async :refer [chan <! >!]]
+   [clojure.string :as str :refer [blank?]]
    [reagent.core :as reagent :refer [atom]])
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
@@ -18,30 +19,42 @@
                   {:id "johanochnystrom.fi" :name "Johan & Nyström"}
                   {:id "kaffaroastery"  :name "Kaffa Roastery"}
                   {:id "Kahvila-Sävy-120657571290663" :name "Kahvila Sävy"}
-                  {:id "pauligkulma" :name "Paulig Kulma"}]))
+                  {:id "pauligkulma" :name "Paulig Kulma"}
+                  ]))
 
-(def BACKEND_ENDPOINT "https://backend-node.jukkhop.now.sh")
+; (def BACKEND_ENDPOINT "https://backend-node.jukkhop.now.sh")
+(def BACKEND_ENDPOINT "http://localhost:8080")
 (def UPDATE_DELAY 60)
 
 (defonce places-shared (atom PLACES))
 (defonce update-secs (atom UPDATE_DELAY))
 
-(defn get-is-open [id chan]
-  (go (let [{:keys [status, body]} (<! (http/get (str BACKEND_ENDPOINT "/" id)))]
-        (if (and (= status 200) (= (:status body) "OK"))
-          (>! chan (if (:is_open body) :is_open :is_closed))
-          (>! chan :error)))))
+(defn from-json [x]
+  (js->clj (.parse js/JSON x) :keywordize-keys true))
+
+(defn parse-open [open]
+  (case open
+    "open" :is_open
+    "closed" :is_closed
+    :else :unknown))
+
+(defn get-info [id chan]
+  (go (let [resp (<! (http/get (str BACKEND_ENDPOINT "/place/" id)))
+            {:keys [status, open, info1]} (from-json (:body resp))]
+        (if (and (= (:status resp) 200) (= status "OK"))
+          (>! chan {:open (parse-open open) :info info1})
+          (>! chan {:error "Error"})))))
 
 (defn update-place [item]
   (let [chan (chan) id (:id item)]
-    (get-is-open id chan)
-    (go (let [open (<! chan)]
-          (let [new-places
-                (map #(if (= (:id %) id) (assoc % :open open :loading false :error (= open :error)) %) @places-shared)]
-            (reset! places-shared new-places))))))
+    (get-info id chan)
+    (go (let [info (<! chan)
+              new-places (map #(if (= (:id %) id)
+                (merge % { :loading false } info) %) @places-shared)]
+          (reset! places-shared new-places)))))
 
 (defn do-update []
-  (reset! places-shared (map #(assoc % :loading true :error false) @places-shared))
+  (reset! places-shared (map #(assoc % :loading true :error false :info nil) @places-shared))
   (dorun (map update-place @places-shared)))
 
 (defn tick []
@@ -50,15 +63,16 @@
   (js/setTimeout tick 1000))
 
 (defn place-component [item]
-  (let [{:keys [open loading error id name]} item]
-    ^{:key item}
+  (let [{:keys [error id info loading name open]} item]
+    ^{:key id}
     [:li
      [:span.name name]
      (cond
        loading [:span.badge.loading "Loading ..."]
        error [:span.badge.error "Error while fetching"]
        (= open :is_open) [:span.badge.open "Open"]
-       (= open :is_closed) [:span.badge.closed "Closed"])]))
+       (= open :is_closed) [:span.badge.closed "Closed"])
+      (if (not (blank? info)) [:span.badge.info info] )]))
 
 (defn places-component [items]
   (reagent/create-class

@@ -43,6 +43,10 @@ li {
   padding: 0.35rem 0rem;
 }
 
+li span:last-of-type {
+  margin-right: 5rem;
+}
+
 span.name {
   font-family: sans-serif;
   font-size: 10px;
@@ -60,7 +64,6 @@ span.badge {
   height: 18px;
   line-height: 18px;
   margin-left: 0.75rem;
-  margin-right: 5rem;
   min-width: 105px;
   padding: 0rem 0.35rem;
   vertical-align: baseline;
@@ -75,9 +78,13 @@ span.open {
 }
 
 span.closed {
-  background-color: rgb(235, 235, 35);
+  background-color: #f0e68c;
 }
 
 span.error {
   background-color: rgba(226, 50, 50, 0.753);
+}
+
+span.info {
+  background-color: #9370db;
 }

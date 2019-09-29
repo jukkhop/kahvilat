@@ -1,9 +1,6 @@
 /target
-/target-dev
-/target-prod
 /classes
 /checkouts
-/node_modules
 profiles.clj
 pom.xml
 pom.xml.asc
@@ -13,4 +10,3 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
-.dev
