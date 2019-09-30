@@ -11,7 +11,7 @@
    [org.httpkit.server :as server]
    [ring.middleware.cors :refer [wrap-cors]]))
 
-(def origin-url #"https://kahvilat.netlify.com/")
+(def origin-url #"https://kahvilat.netlify.com")
 (def port "8080")
 (def scrape-url "https://www.facebook.com/")
 
@@ -64,7 +64,7 @@
 (def app
   (-> app-routes
       (wrap-cors
-       :access-control-allow-credentials [true]
+       :access-control-allow-credentials "true"
        :access-control-allow-headers ["Content-Type"]
        :access-control-allow-methods [:get :options]
        :access-control-allow-origin [origin-url])))
