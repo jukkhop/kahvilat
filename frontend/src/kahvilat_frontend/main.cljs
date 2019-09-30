@@ -19,10 +19,9 @@
                   {:id "johanochnystrom.fi" :name "Johan & Nyström"}
                   {:id "kaffaroastery"  :name "Kaffa Roastery"}
                   {:id "Kahvila-Sävy-120657571290663" :name "Kahvila Sävy"}
-                  {:id "pauligkulma" :name "Paulig Kulma"}
-                  ]))
+                  {:id "pauligkulma" :name "Paulig Kulma"}]))
 
-(def BACKEND_ENDPOINT "http://34.241.116.19:8080/")
+(def BACKEND_ENDPOINT "https://kahvilat-backend.caffeinerush.dev")
 (def UPDATE_DELAY 60)
 
 (defonce places-shared (atom PLACES))
@@ -49,7 +48,7 @@
     (get-info id chan)
     (go (let [info (<! chan)
               new-places (map #(if (= (:id %) id)
-                (merge % { :loading false } info) %) @places-shared)]
+                                 (merge % {:loading false} info) %) @places-shared)]
           (reset! places-shared new-places)))))
 
 (defn do-update []
@@ -71,7 +70,7 @@
        error [:span.badge.error "Error while fetching"]
        (= open :is_open) [:span.badge.open "Open"]
        (= open :is_closed) [:span.badge.closed "Closed"])
-      (if (not (blank? info)) [:span.badge.info info] )]))
+     (if (not (blank? info)) [:span.badge.info info])]))
 
 (defn places-component [items]
   (reagent/create-class
