@@ -22,7 +22,7 @@
                   {:id "pauligkulma" :name "Paulig Kulma"}
                   ]))
 
-(def BACKEND_ENDPOINT "https://backend-node.jukkhop.now.sh")
+(def BACKEND_ENDPOINT "http://34.241.116.19:8080/")
 (def UPDATE_DELAY 60)
 
 (defonce places-shared (atom PLACES))
