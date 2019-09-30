@@ -11,7 +11,7 @@
    [org.httpkit.server :as server]
    [ring.middleware.cors :refer [wrap-cors]]))
 
-(def origin-url #"http://localhost:3449")
+(def origin-url #"https://kahvilat.netlify.com/")
 (def port "8080")
 (def scrape-url "https://www.facebook.com/")
 
