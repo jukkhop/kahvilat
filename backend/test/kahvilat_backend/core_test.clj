@@ -1,6 +1,6 @@
-(ns kahvilat-backend.core-test
+(ns kahvilat-backend.main-test
   (:require [clojure.test :refer :all]
-            [kahvilat-backend.core :refer :all]))
+            [kahvilat-backend.main :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
