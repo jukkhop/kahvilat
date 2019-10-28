@@ -23,4 +23,4 @@ Quick way to see which specialty cafeterias in Helsinki are currently open. Fron
 
 - Change directory `cd frontend`
 - Run the development server `lein figwheel`
-- Browser should open at `http://localhost:3449/index.html`
+- Browser should open at `http://localhost:3449`

@@ -1,9 +1,9 @@
 (ns kahvilat-backend.main
-  (:use (kahvilat-backend routes))
   (:require
    [environ.core :refer [env]]
    [org.httpkit.server :as server]
-   [ring.middleware.cors :refer [wrap-cors]]))
+   [ring.middleware.cors :refer [wrap-cors]])
+  (:use (kahvilat-backend routes)))
 
 (def origin-url
   (-> :origin-url env re-pattern))

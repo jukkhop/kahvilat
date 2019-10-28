@@ -31,7 +31,7 @@
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler {:main kahvilat-frontend.main
+                :compiler {:main kahvilat-frontend.app
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/kahvilat_frontend.js"
                            :output-dir "resources/public/js/compiled/out"
@@ -44,10 +44,11 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/kahvilat_frontend.js"
-                           :main kahvilat-frontend.main
+                :compiler {:output-to "resources/public/js/compiled/kahvilat_frontend_min.js"
+                           :main kahvilat-frontend.app
                            :optimizations :advanced
-                           :pretty-print false}}]}
+                           :pretty-print false
+                           :warnings true}}]}
 
   :figwheel {; watch and update CSS
              :css-dirs ["resources/public/css"]
