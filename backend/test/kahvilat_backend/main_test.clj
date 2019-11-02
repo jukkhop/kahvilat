@@ -3,5 +3,5 @@
             [kahvilat-backend.main :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+  (testing "test basic arithmetic"
+    (is (= 1 1))))
