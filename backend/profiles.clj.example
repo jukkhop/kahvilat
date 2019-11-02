@@ -1,3 +1,11 @@
 {:dev  {:env {:origin-url "http://localhost:3449"
               :port "8080"
               :scrape-url "https://www.facebook.com/"}}
+
+ :test  {:env {:origin-url "http://localhost:3449"
+              :port "8080"
+              :scrape-url "https://www.facebook.com/"}}
+
+ :prod {:env {:origin-url "http://localhost:3449"
+              :port "8080"
+              :scrape-url "https://www.facebook.com/"}}}
