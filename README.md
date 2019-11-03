@@ -6,21 +6,7 @@ Quick way to see which specialty cafeterias in Helsinki are currently open. Fron
 
 #### [Read the blog post][post]
 
+#### [See documentation][docs]
+
 [post]: https://caffeinerush.dev/blog/some-dynamic-functional-code-with-your-coffee
-
-<hr>
-
-### Instructions for local development
-
-#### Run backend
-
-- Change directory `cd backend`
-- Create a profiles file `cp profiles.clj.example profiles.clj` (edit as needed)
-- Run the server `lein run`
-- Test the server `curl http://localhost:8080/api/v1/` (you should get a JSON response)
-
-#### Run frontend
-
-- Change directory `cd frontend`
-- Run the development server `lein figwheel`
-- Browser should open at `http://localhost:3449`
+[docs]: https://github.com/jukkhop/kahvilat/tree/master/docs
