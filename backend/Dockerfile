@@ -16,6 +16,6 @@ ENV PORT 8080
 
 ENV SCRAPER_API_KEY = my_scraper_api_key
 
-RUN mv "$(lein uberjar | sed -n 's/^Created \(.*standalone\.jar\)/\1/p')" kahvilat-backend-0.1.0-standalone.jar
+RUN mv "$(lein uberjar | sed -n 's/^Created \(.*standalone\.jar\)/\1/p')" kahvilat-backend-standalone.jar
 
-CMD ["java", "-jar", "kahvilat-backend-0.1.0-standalone.jar"]
+CMD ["java", "-jar", "kahvilat-backend-standalone.jar"]
