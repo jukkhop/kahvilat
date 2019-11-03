@@ -1,4 +1,4 @@
-(ns kahvilat-backend.routes
+(ns kahvilat-backend.routes.routes
   (:require
    [compojure.core :refer [defroutes GET]]
    [compojure.route :as route])

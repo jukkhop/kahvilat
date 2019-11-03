@@ -4,7 +4,7 @@
    [environ.core :refer [env]]
    [org.httpkit.server :as server]
    [ring.middleware.cors :refer [wrap-cors]])
-  (:use (kahvilat-backend routes)))
+  (:use (kahvilat-backend.routes routes)))
 
 (def origin-url
   (-> :origin-url env re-pattern))
