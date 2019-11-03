@@ -6,8 +6,14 @@
    [hickory.core :refer [as-hickory parse]]
    [hickory.select :as s]))
 
+(def scraper-api-key
+  (env :scraper-api-key))
+
 (def scrape-url
-  (env :scrape-url))
+  (str
+    "http://api.scraperapi.com?api_key="
+    scraper-api-key
+    "&url=https://www.facebook.com/"))
 
 (defn parse-status [info]
   (cond

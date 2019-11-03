@@ -1,34 +1,42 @@
-version: 2
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.5.0
+  aws-ecs: circleci/aws-ecs@0.0.22
 jobs:
-  build:
+  test:
     working_directory: ~/repo/backend
-
     docker:
       - image: circleci/clojure:lein-2.9.1
-
     environment:
       JVM_OPTS: -Xmx3200m
       LEIN_ROOT: nbd
-
     steps:
       - checkout:
           path: ~/repo
-
       - restore_cache:
           key: v1-dependencies-{{ checksum "project.clj" }}
-
       - run: lein deps
-
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "project.clj" }}
-
-      - run: lein do test, uberjar
-
-      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: target/kahvilat-backend-0.1.0-standalone.jar
-          destination: uberjar
-      #
-      #
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+      - run: lein test
+workflows:
+  test:
+    jobs:
+      - test
+  build_and_deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          dockerfile: ./backend/Dockerfile
+          path: ./backend
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          tag: "${CIRCLE_SHA1}"
+          workspace-root: ./backend
+      - aws-ecs/deploy-service-update:
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-env-var-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,name=ORIGIN_URL,value=${ORIGIN_URL},container=${AWS_RESOURCE_NAME_PREFIX}-service,name=PORT,value=${PORT},container=${AWS_RESOURCE_NAME_PREFIX}-service,name=SCRAPER_API_KEY,value=${SCRAPER_API_KEY}"
+          container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          requires:
+            - aws-ecr/build-and-push-image

@@ -1,4 +1,5 @@
 (ns kahvilat-backend.main
+  (:gen-class)
   (:require
    [environ.core :refer [env]]
    [org.httpkit.server :as server]
