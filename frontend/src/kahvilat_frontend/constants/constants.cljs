@@ -1,7 +1,9 @@
 (ns kahvilat-frontend.constants)
 
-(def initial-delay 60)
-(def backend-endpoint "https://kahvilat-backend-v2.caffeinerush.dev/api/v1")
+(goog-define backend-endpoint "Missing environment variable `backend-endpoint`")
+(goog-define initial-delay "Missing environment variable `initial-delay`")
+
+(def initial-seconds (js/parseInt initial-delay))
 
 (def raw-places [{:id "AndanteHelsinki" :name "Andante"}
                  {:id "artisanhelsinki" :name "Artisan Café"}

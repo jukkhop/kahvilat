@@ -3,7 +3,7 @@
    [cljs.core.async :refer [chan <!]]
    [kahvilat-frontend.api :refer [fetch-info]]
    [kahvilat-frontend.components.place :refer [place-component]]
-   [kahvilat-frontend.constants :refer [initial-delay]]
+   [kahvilat-frontend.constants :refer [initial-seconds]]
    [kahvilat-frontend.store :refer [places-shared secs-shared reset-places reset-secs]]
    [kahvilat-frontend.utils :refer [update-elem-by-id]]
    [reagent.core :as reagent])
@@ -26,7 +26,7 @@
 
 (defn tick []
   (when (zero? @secs-shared) (update-places))
-  (reset-secs (if (pos? @secs-shared) (dec @secs-shared) initial-delay))
+  (reset-secs (if (pos? @secs-shared) (dec @secs-shared) initial-seconds))
   (js/setTimeout tick 1000))
 
 (defn places-component [items]
