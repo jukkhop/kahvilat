@@ -8,7 +8,7 @@
 
 (defn app []
   [:div.container
-   [:h1.title "kahvilat.info"]
+   [:h1.title "kahvilat.caffeinerush.dev"]
    [:h3.subtitle "Refresh in: " @secs-shared]
    [places-component @places-shared]])
 

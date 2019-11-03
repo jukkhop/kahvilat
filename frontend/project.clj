@@ -1,6 +1,7 @@
 (defproject kahvilat-frontend "0.1.0-SNAPSHOT"
-  :description "kahvilat.info"
-  :url ""
+  :description "See which specialty cafeterias in Helsinki are currently open"
+  :url "https://kahvilat.caffeinerush.dev/"
+
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
