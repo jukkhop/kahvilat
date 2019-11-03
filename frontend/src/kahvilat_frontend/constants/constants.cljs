@@ -1,7 +1,7 @@
 (ns kahvilat-frontend.constants)
 
 (def initial-delay 60)
-(def backend-endpoint "https://kahvilat-backend.caffeinerush.dev/api/v1")
+(def backend-endpoint "https://kahvilat-backend-v2.caffeinerush.dev/api/v1")
 
 (def raw-places [{:id "AndanteHelsinki" :name "Andante"}
                  {:id "artisanhelsinki" :name "Artisan Café"}
