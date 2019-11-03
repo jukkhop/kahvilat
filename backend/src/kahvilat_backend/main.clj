@@ -10,7 +10,7 @@
   (-> :origin-url env re-pattern))
 
 (def port
-  (env :port))
+  (-> :port env Integer/parseInt))
 
 (def app
   (-> app-routes
@@ -20,6 +20,5 @@
                  :access-control-allow-origin [origin-url])))
 
 (defn -main []
-  (let [port (Integer/parseInt port)]
-    (server/run-server #'app {:port port})
-    (println (str "Server running at port " port))))
+  (server/run-server #'app {:port port})
+  (println (str "Server running at port " port)))
