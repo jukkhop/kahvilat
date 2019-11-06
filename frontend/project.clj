@@ -35,8 +35,8 @@
 
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:closure-defines {kahvilat-frontend.constants/backend-endpoint #=(eval (System/getenv "BACKEND_ENDPOINT"))
-                                             kahvilat-frontend.constants/initial-delay #=(eval (System/getenv "INITIAL_DELAY"))}
+                :compiler {:closure-defines {kahvilat-frontend.constants/backend-endpoint #=(eval (or (System/getenv "BACKEND_ENDPOINT") ""))
+                                             kahvilat-frontend.constants/initial-delay #=(eval (or (System/getenv "INITIAL_DELAY") ""))}
                            :optimizations :advanced
                            :output-to "resources/public/js/compiled/kahvilat_frontend.js"
                            :pretty-print false}}]}
