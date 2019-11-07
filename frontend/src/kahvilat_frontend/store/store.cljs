@@ -5,9 +5,3 @@
 
 (defonce places-shared (atom initial-places))
 (defonce secs-shared (atom initial-seconds))
-
-(defn reset-places [new-places]
-  (reset! places-shared new-places))
-
-(defn reset-secs [new-secs]
-  (reset! secs-shared new-secs))

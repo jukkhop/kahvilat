@@ -4,29 +4,33 @@
    [kahvilat-frontend.api :refer [fetch-info]]
    [kahvilat-frontend.components.place :refer [place-component]]
    [kahvilat-frontend.constants :refer [initial-seconds]]
-   [kahvilat-frontend.store :refer [places-shared secs-shared reset-places reset-secs]]
-   [kahvilat-frontend.utils :refer [update-elem-by-id]]
+   [kahvilat-frontend.store :refer [places-shared secs-shared]]
+   [kahvilat-frontend.utils :refer [assoc-seq]]
    [reagent.core :as reagent])
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
-(defn update-place [item]
+(def reset-vals {:loading true :error false :info nil})
+
+(defn update-place [idx item]
   (let [chan (chan)
         id (:id item)]
     (fetch-info id chan)
-    (go (let [info (<! chan)
-              new-elem (merge {:loading false} info)
-              new-places (update-elem-by-id @places-shared id new-elem)]
-          (reset-places new-places)))))
+    (go (let [info (<! chan)]
+          (swap!
+           places-shared
+           (fn [xs] (assoc-seq xs idx (merge
+                                       (nth xs idx)
+                                       {:loading false}
+                                       info))))))))
 
 (defn update-places []
-  (let [new-places (map #(assoc % :loading true :error false :info nil) @places-shared)]
-    (reset-places new-places)
-    (dorun (map update-place @places-shared))))
+  (swap! places-shared (fn [xs] (map #(merge % reset-vals) xs)))
+  (dorun (map-indexed update-place @places-shared)))
 
 (defn tick []
   (when (zero? @secs-shared) (update-places))
-  (reset-secs (if (pos? @secs-shared) (dec @secs-shared) initial-seconds))
+  (swap! secs-shared #(if (pos? %) (dec %) initial-seconds))
   (js/setTimeout tick 1000))
 
 (defn places-component [items]
