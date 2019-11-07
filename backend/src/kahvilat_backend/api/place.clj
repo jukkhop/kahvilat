@@ -10,7 +10,8 @@
       {:status  200
        :headers {"Content-Type" "text/json"}
        :body (json/write-str (merge {:status "OK"} info))})
-    (catch Exception e
+    (catch Exception ex
+      (println ex)
       {:status 500
        :headers {"Content-Type" "text/json"}
-       :body (json/write-str {:status "Error" :message (.getMessage e)})})))
+       :body (json/write-str {:status "Error" :message (.getMessage ex)})})))
