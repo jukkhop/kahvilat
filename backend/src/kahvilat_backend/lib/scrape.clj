@@ -3,12 +3,10 @@
    [clojure.core.async :refer [go]]
    [clj-http.client :as client]
    [clojure.string :as str :refer [includes? lower-case]]
-   [environ.core :refer [env]]
    [hickory.core :refer [as-hickory parse]]
-   [hickory.select :as s]))
-
-(def scraper-api-key
-  (env :scraper-api-key))
+   [hickory.select :as s])
+  (:use
+   (kahvilat-backend.constants envs)))
 
 (def scrape-url
   (str
@@ -51,9 +49,8 @@
     (try
       (let [{:keys [body, reason-phrase, status]}
             (client/get (str scrape-url id))]
-        (if-not (= status 200)
-          {:status "Error"
-           :message (str "Facebook returned " status reason-phrase)})
-        (merge {:status "OK"} (parse-opening-hours body)))
+        (if (= status 200)
+          (merge {:status "OK"} (parse-opening-hours body))
+          {:status "Error" :message (str status ": " reason-phrase)}))
       (catch Exception ex
         {:status "Error" :message (.getMessage ex)}))))
