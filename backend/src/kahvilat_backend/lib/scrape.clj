@@ -1,5 +1,6 @@
 (ns kahvilat-backend.lib.scrape
   (:require
+   [clojure.core.async :refer [go]]
    [clj-http.client :as client]
    [clojure.string :as str :refer [includes? lower-case]]
    [environ.core :refer [env]]
@@ -11,11 +12,11 @@
 
 (def scrape-url
   (str
-    "http://api.scraperapi.com?api_key="
-    scraper-api-key
-    "&url=https://www.facebook.com/"))
+   "http://api.scraperapi.com?api_key="
+   scraper-api-key
+   "&url=https://www.facebook.com/"))
 
-(defn parse-status [info]
+(defn- parse-status [info]
   (cond
     (includes? info "open now") :open
     (includes? info "closes in") :open
@@ -23,11 +24,9 @@
     (includes? info "opens in") :closed
     :else :error))
 
-(defn get-opening-hours [id]
-  "Fetches the Facebook page with the given id and attempts to parse
-  information about the opening hours"
-  (let [{:keys [status, body]} (client/get (str scrape-url id))
-        tree (as-hickory (parse body))
+(defn- parse-opening-hours [html]
+  "Attempts to parse opening hours information from the given HTML"
+  (let [tree (as-hickory (parse html))
         data (-> (s/select (s/child
                             (s/and
                              (s/class "_4-u2")
@@ -43,5 +42,18 @@
                  last :content)
         info1 (-> data first :content first)
         info2 (-> data second :content first :content first)
-        is_open (parse-status (lower-case info2))]
+        is_open (-> info2 lower-case parse-status)]
     {:info1 info1 :info2 info2 :open is_open}))
+
+(defn fetch-opening-hours [id]
+  "Attempts to asynchronously fetch the Facebook page with the given id"
+  (go
+    (try
+      (let [{:keys [body, reason-phrase, status]}
+            (client/get (str scrape-url id))]
+        (if-not (= status 200)
+          {:status "Error"
+           :message (str "Facebook returned " status reason-phrase)})
+        (merge {:status "OK"} (parse-opening-hours body)))
+      (catch Exception ex
+        {:status "Error" :message (.getMessage ex)}))))

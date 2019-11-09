@@ -4,7 +4,7 @@
    [compojure.route :as route])
   (:use (kahvilat-backend.api root place)))
 
-(defroutes app-routes
-  (GET "/api/v1" [] root-path)
-  (GET "/api/v1/place/:id" [] place-path)
+(defroutes all-routes
+  (GET "/api/v1" [] root-handler)
+  (GET "/api/v1/place/:id" [] place-handler)
   (route/not-found "Not found"))

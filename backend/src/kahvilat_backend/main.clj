@@ -13,7 +13,7 @@
   (-> :port env Integer/parseInt))
 
 (def app
-  (-> app-routes
+  (-> all-routes
       (wrap-cors :access-control-allow-credentials "true"
                  :access-control-allow-headers ["Content-Type"]
                  :access-control-allow-methods [:get :options]

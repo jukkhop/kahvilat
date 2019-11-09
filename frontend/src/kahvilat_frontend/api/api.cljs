@@ -8,20 +8,25 @@
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
-(defn parse-open [open]
+(defn- parse-open [open]
   (case open
     "open" :is_open
     "closed" :is_closed
     :else :unknown))
 
-(defn fetch-info [id chan]
+(defn fetch-info [id]
   (go
     (try
-      (let [resp (<! (http/get (str backend-endpoint "/place/" id)))
-            {:keys [status, open, info1]} (from-json (:body resp))]
-        (if (and (= (:status resp) 200) (= status "OK"))
-          (>! chan {:open (parse-open open) :info info1})
-          (>! chan {:error "Error"})))
-      (catch js/Error ex
-        (>! chan {:error (.-message ex)})))))
+      (let [url (str backend-endpoint "/place/" id)
+            res (<! (http/get url {:keepalive 10000}))]
 
+        (if-not (= (:status res) 200)
+          (throw (js/Error. "Fetch error")))
+
+        (let [{:keys [status, open, info1]} (from-json (:body res))]
+          (if-not (= status "OK")
+            (throw (js/Error. "Parse error")))
+          {:open (parse-open open) :info info1}))
+
+      (catch js/Error ex
+        {:error (.-message ex)}))))
