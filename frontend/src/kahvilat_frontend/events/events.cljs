@@ -16,7 +16,7 @@
             new-place (merge place {:loading false} info)]
         (emit [:update-place new-place idx]))))
 
-(defn- event-handler [state [event-name value index]]
+(defn- event-handler [state [event-name value idx]]
   (let [{:keys [places, secs]} state]
     (case event-name
       :second-elapsed (do
@@ -29,7 +29,7 @@
                        (assoc state :places new-places))
 
       :update-place (assoc state :places
-                           (assoc-seq places index value))
+                           (assoc-seq places idx value))
 
       state)))
 

@@ -25,7 +25,7 @@
         (if-not (= (:status res) 200)
           (throw (js/Error. "Fetch error")))
 
-        (let [{:keys [status, open, info1]} (from-json (:body res))]
+        (let [{:keys [status, open, info1]} (-> res :body from-json)]
           (if-not (= status "OK")
             (throw (js/Error. "Parse error")))
           {:open (parse-open open) :info info1}))
