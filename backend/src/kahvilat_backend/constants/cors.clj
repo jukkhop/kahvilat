@@ -1,6 +1,6 @@
 (ns kahvilat-backend.constants.cors
   (:use
-    (kahvilat-backend.constants envs)))
+   (kahvilat-backend.constants envs)))
 
 (def cors-headers
   {"Access-Control-Allow-Credentials" "true"

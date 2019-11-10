@@ -9,10 +9,9 @@
    (kahvilat-backend.constants envs)))
 
 (def scrape-url
-  (str
-   "http://api.scraperapi.com?api_key="
-   scraper-api-key
-   "&url=https://www.facebook.com/"))
+  (str "http://api.scraperapi.com?api_key="
+       scraper-api-key
+       "&url=https://www.facebook.com/"))
 
 (defn- parse-status [info]
   (cond
@@ -53,4 +52,5 @@
           (merge {:status "OK"} (parse-opening-hours body))
           {:status "Error" :message (str status ": " reason-phrase)}))
       (catch Exception ex
+        (println "Caught exception " (str ex))
         {:status "Error" :message (.getMessage ex)}))))
