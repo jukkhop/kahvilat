@@ -16,6 +16,6 @@
                            {:id "Kahvila-Sävy-120657571290663" :name "Kahvila Sävy"}
                            {:id "pauligkulma" :name "Paulig Kulma"}])
 
-(def ^:private raw-values {:open :unknown :loading false :error false})
+(def reset-values {:open :unknown :loading true :error nil :info nil})
 
-(def initial-places (map #(merge % raw-values) raw-places))
+(def initial-places (map #(merge % reset-values) raw-places))

@@ -8,17 +8,19 @@
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
+(def options {:keepalive 10000 :timeout 20000})
+
 (defn- parse-open [open]
   (case open
-    "open" :is_open
-    "closed" :is_closed
+    "open" :is-open
+    "closed" :is-closed
     :else :unknown))
 
 (defn fetch-info [id]
   (go
     (try
       (let [url (str backend-endpoint "/place/" id)
-            res (<! (http/get url {:keepalive 10000}))]
+            res (<! (http/get url options))]
 
         (if-not (= (:status res) 200)
           (throw (js/Error. "Fetch error")))
