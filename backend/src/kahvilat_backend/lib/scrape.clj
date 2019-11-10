@@ -21,7 +21,7 @@
     (includes? info "opens in") :closed
     :else :error))
 
-(defn- parse-opening-hours [html]
+(defn- parse-html [html]
   "Attempts to parse opening hours information from the given HTML"
   (let [tree (as-hickory (parse html))
         data (-> (s/select (s/child
@@ -43,13 +43,13 @@
     {:info1 info1 :info2 info2 :open is_open}))
 
 (defn fetch-opening-hours [id]
-  "Attempts to asynchronously fetch the Facebook page with the given id"
+  "Attempts to asynchronously fetch the opening hours by the given place id"
   (go
     (try
       (let [{:keys [body, reason-phrase, status]}
             (client/get (str scrape-url id))]
         (if (= status 200)
-          (merge {:status "OK"} (parse-opening-hours body))
+          (merge {:status "OK"} (parse-html body))
           {:status "Error" :message (str status ": " reason-phrase)}))
       (catch Exception ex
         (println "Caught exception " (str ex))
