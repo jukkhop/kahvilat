@@ -35,7 +35,11 @@ workflows:
           workspace-root: ./backend
       - aws-ecs/deploy-service-update:
           cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
-          container-env-var-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,name=CACHE_TTL,value=${CACHE_TTL},container=${AWS_RESOURCE_NAME_PREFIX}-service,name=ORIGIN_URL,value=${ORIGIN_URL},container=${AWS_RESOURCE_NAME_PREFIX}-service,name=PORT,value=${PORT},container=${AWS_RESOURCE_NAME_PREFIX}-service,name=SCRAPER_API_KEY,value=${SCRAPER_API_KEY}"
+          container-env-var-updates: >
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=CACHE_TTL,value=${CACHE_TTL},
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=ORIGIN_URL,value=${ORIGIN_URL},
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=PORT,value=${PORT},
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=SCRAPER_API_KEY,value=${SCRAPER_API_KEY}
           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
           requires:
