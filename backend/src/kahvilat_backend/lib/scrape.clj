@@ -43,14 +43,13 @@
     {:info1 info1 :info2 info2 :open is_open}))
 
 (defn fetch-opening-hours [id]
-  "Attempts to asynchronously fetch the opening hours by the given place id"
-  (go
-    (try
-      (let [{:keys [body, reason-phrase, status]}
-            (client/get (str scrape-url id))]
-        (if (= status 200)
-          (merge {:status "OK"} (parse-html body))
-          {:status "Error" :message (str status ": " reason-phrase)}))
-      (catch Exception ex
-        (println "Caught exception " (str ex))
-        {:status "Error" :message (.getMessage ex)}))))
+  "Attempts to fetch the opening hours by the given place id"
+  (try
+    (let [{:keys [body, reason-phrase, status]}
+          (client/get (str scrape-url id))]
+      (if (= status 200)
+        (merge {:status "OK"} (parse-html body))
+        {:status "Error" :message (str status ": " reason-phrase)}))
+    (catch Exception ex
+      (println "Caught exception " (str ex))
+      {:status "Error" :message (.getMessage ex)})))

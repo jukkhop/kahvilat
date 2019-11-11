@@ -1,11 +1,14 @@
-{:dev  {:env {:origin-url "http://localhost:3449"
+{:dev  {:env {:cache-ttl "10000"
+              :origin-url "http://localhost:3449"
               :port "8080"
               :scraper-api-key "my_scraper_api_key"}}
 
- :test  {:env {:origin-url "http://localhost:3449"
-              :port "8080"
-              :scraper-api-key "my_scraper_api_key"}}
+ :test  {:env {:cache-ttl "60000"
+               :origin-url "http://localhost:3449"
+               :port "8080"
+               :scraper-api-key "my_scraper_api_key"}}
 
- :prod {:env {:origin-url "http://localhost:3449"
+ :prod {:env {:cache-ttl "60000"
+              :origin-url "http://localhost:3449"
               :port "8080"
               :scraper-api-key "my_scraper_api_key"}}}

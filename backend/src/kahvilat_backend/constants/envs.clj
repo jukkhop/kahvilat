@@ -2,6 +2,9 @@
   (:require
    [environ.core :refer [env]]))
 
+(def cache-ttl
+  (-> :cache-ttl env Integer/parseInt))
+
 (def origin-url
   (-> :origin-url env re-pattern))
 

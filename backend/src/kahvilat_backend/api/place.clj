@@ -4,8 +4,9 @@
    [clojure.data.json :as json]
    [org.httpkit.server :refer [with-channel send!]])
   (:use
-   (kahvilat-backend.lib scrape)
-   (kahvilat-backend.constants cors)))
+   (kahvilat-backend.cache cache)
+   (kahvilat-backend.constants cors)
+   (kahvilat-backend.lib scrape)))
 
 (defn- format-response [info]
   (let [{:keys [status, message]} info]
@@ -16,8 +17,10 @@
 (defn place-handler [req]
   (with-channel req chan
     (go (let [id (-> req :params :id)
-              info (<! (fetch-opening-hours id))
+              info (cache-get id fetch-opening-hours)
               {:keys [status, body]} (format-response info)]
+          (if-not (= (:status info) "OK")
+            (cache-evict id))
           (send! chan {:status status
                        :headers (merge {"Content-Type" "text/json"} cors-headers)
                        :body (json/write-str body)}

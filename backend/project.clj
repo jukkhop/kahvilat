@@ -7,6 +7,7 @@
                  [http-kit "2.3.0"]
                  [org.clojure/clojure "1.10.0"]
                  [org.clojure/core.async  "0.4.500"]
+                 [org.clojure/core.cache "0.8.2"]
                  [org.clojure/data.json "0.2.6"]]
 
   :main kahvilat-backend.main

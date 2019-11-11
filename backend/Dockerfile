@@ -10,6 +10,8 @@ RUN lein deps
 
 COPY . /usr/src/app
 
+ENV CACHE_TTL 60000
+
 ENV ORIGIN_URL http://localhost:3449
 
 ENV PORT 8080
