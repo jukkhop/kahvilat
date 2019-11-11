@@ -1,6 +1,5 @@
 (ns kahvilat-backend.lib.scrape
   (:require
-   [clojure.core.async :refer [go]]
    [clj-http.client :as client]
    [clojure.string :as str :refer [includes? lower-case]]
    [hickory.core :refer [as-hickory parse]]

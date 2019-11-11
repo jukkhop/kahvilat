@@ -1,6 +1,6 @@
 (ns kahvilat-backend.api.place
   (:require
-   [clojure.core.async :refer [chan <! go]]
+   [clojure.core.async :refer [go]]
    [clojure.data.json :as json]
    [org.httpkit.server :refer [with-channel send!]])
   (:use
