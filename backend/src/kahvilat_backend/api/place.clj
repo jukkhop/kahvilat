@@ -5,23 +5,22 @@
    [org.httpkit.server :refer [with-channel send!]])
   (:use
    (kahvilat-backend.cache cache)
-   (kahvilat-backend.constants cors)
+   (kahvilat-backend.constants headers)
    (kahvilat-backend.lib scrape)))
 
-(defn- format-response [info]
-  (let [{:keys [status, message]} info]
-    (if (= status "OK")
-      {:status 200 :body (merge {:status "OK"} info)}
-      {:status 500 :body {:status "Error" :message message}})))
-
 (defn place-handler [req]
+  ; Handle request asynchronously using with-channel and send!
+  ;
+  ; Successful requests are cached using a time-to-live cache.
   (with-channel req chan
     (go (let [id (-> req :params :id)
               info (cache-get id fetch-opening-hours)
-              {:keys [status, body]} (format-response info)]
-          (if-not (= (:status info) "OK")
+              {:keys [status]} info]
+
+          (if-not (= status "OK")
             (cache-evict id))
-          (send! chan {:status status
-                       :headers (merge {"Content-Type" "text/json"} cors-headers)
-                       :body (json/write-str body)}
+
+          (send! chan {:status (if (= status "OK") 200 500)
+                       :headers all-headers
+                       :body (json/write-str info)}
                  true)))))

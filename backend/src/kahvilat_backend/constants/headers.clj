@@ -1,9 +1,15 @@
-(ns kahvilat-backend.constants.cors
+(ns kahvilat-backend.constants.headers
   (:use
    (kahvilat-backend.constants envs)))
+
+(def content-headers
+  {"Content-Type" "text/json"})
 
 (def cors-headers
   {"Access-Control-Allow-Credentials" "true"
    "Access-Control-Allow-Headers" "Content-Type"
    "Access-Control-Allow-Methods" "GET"
    "Access-Control-Allow-Origin" origin-url})
+
+(def all-headers
+  (merge content-headers cors-headers))

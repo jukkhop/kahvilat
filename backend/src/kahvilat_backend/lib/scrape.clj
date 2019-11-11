@@ -51,5 +51,5 @@
         (merge {:status "OK"} (parse-html body))
         {:status "Error" :message (str status ": " reason-phrase)}))
     (catch Exception ex
-      (println "Caught exception " (str ex))
+      (println "Exception caught: " (str ex))
       {:status "Error" :message (.getMessage ex)})))

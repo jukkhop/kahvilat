@@ -4,7 +4,7 @@
    [org.httpkit.server :as server])
   (:use
    (kahvilat-backend.routes routes)
-   (kahvilat-backend.constants cors envs)))
+   (kahvilat-backend.constants envs headers)))
 
 (defn -main []
   (server/run-server all-routes {:port port})
