@@ -8,7 +8,7 @@
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
-(def options {:keepalive 10000 :timeout 20000})
+(def options {:keepalive 10000 :timeout 30000})
 
 (defn- parse-open [open]
   (case open
