@@ -1,7 +1,7 @@
 (ns kahvilat-backend.lib.scrape
   (:require
    [clj-http.client :as client]
-   [clojure.string :as str :refer [includes? lower-case]]
+   [clojure.string :as str :refer [includes? lower-case trim]]
    [hickory.core :refer [as-hickory parse]]
    [hickory.select :as s])
   (:use
@@ -36,8 +36,8 @@
                             (s/class "_4bl9"))
                            tree)
                  last :content)
-        info1 (-> data first :content first)
-        info2 (-> data second :content first :content first)
+        info1 (-> data first :content first trim)
+        info2 (-> data second :content first :content first trim)
         is_open (-> info2 lower-case parse-status)]
     {:info1 info1 :info2 info2 :open is_open}))
 
