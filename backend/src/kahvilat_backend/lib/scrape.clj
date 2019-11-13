@@ -20,7 +20,7 @@
     (includes? info "opens in") :closed
     :else :error))
 
-(defn- parse-html [html]
+(defn- parse-info [html]
   "Attempts to parse opening hours information from the given HTML"
   (let [tree (as-hickory (parse html))
         data (-> (s/select (s/child
@@ -38,8 +38,8 @@
                  last :content)
         info1 (-> data first :content first trim)
         info2 (-> data second :content first :content first trim)
-        is_open (-> info2 lower-case parse-status)]
-    {:info1 info1 :info2 info2 :open is_open}))
+        open (-> info2 lower-case parse-status)]
+    {:info1 info1 :info2 info2 :open open}))
 
 (defn fetch-opening-hours [id]
   "Attempts to fetch the opening hours by the given place id"
@@ -47,8 +47,8 @@
     (let [{:keys [body, reason-phrase, status]}
           (client/get (str scrape-url id))]
       (if (= status 200)
-        (merge {:status "OK"} (parse-html body))
-        {:status "Error" :message (str status ": " reason-phrase)}))
+        {:status "OK" :body (parse-info body)}
+        {:status "Error" :body {:message (str status ": " reason-phrase)}}))
     (catch Exception ex
       (println "Exception caught: " (str ex))
-      {:status "Error" :message (.getMessage ex)})))
+      {:status "Error" :body {:message (.getMessage ex)}})))

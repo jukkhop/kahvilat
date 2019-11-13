@@ -1,14 +1,13 @@
 (ns kahvilat-frontend.api
   (:require
    [cljs-http.client :as http]
-   [cljs.core.async :refer [chan <! >!]]
+   [cljs.core.async :refer [chan <!]]
    [clojure.string :as str]
-   [kahvilat-frontend.constants :refer [backend-endpoint]]
-   [kahvilat-frontend.utils :refer [from-json]])
+   [kahvilat-frontend.constants :refer [backend-endpoint]])
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
-(def options {:keepalive 10000 :timeout 30000})
+(def options {:keepalive 10000 :timeout 30000 :with-credentials? false})
 
 (defn- parse-open [open]
   (case open
@@ -20,14 +19,12 @@
   (go
     (try
       (let [url (str backend-endpoint "/place/" id)
-            res (<! (http/get url options))]
+            {:keys [body, status]} (<! (http/get url options))]
 
-        (if-not (= (:status res) 200)
+        (if-not (= status 200)
           (throw (js/Error. "Fetch error")))
 
-        (let [{:keys [status, open, info1]} (-> res :body from-json)]
-          (if-not (= status "OK")
-            (throw (js/Error. "Parse error")))
+        (let [{:keys [open, info1]} body]
           {:open (parse-open open) :info info1}))
 
       (catch js/Error ex
