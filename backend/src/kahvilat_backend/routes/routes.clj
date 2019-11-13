@@ -7,5 +7,5 @@
 
 (defroutes all-routes
   (GET "/api/v1" [] root-handler)
-  (GET "/api/v1/place/:id" [] place-handler)
+  (GET "/api/v1/place" [] place-handler)
   (not-found "Not found"))

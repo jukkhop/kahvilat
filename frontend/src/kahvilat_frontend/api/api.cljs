@@ -18,7 +18,7 @@
 (defn fetch-info [id]
   (go
     (try
-      (let [url (str backend-endpoint "/place/" id)
+      (let [url (str backend-endpoint "/place?id=" id)
             {:keys [body, status]} (<! (http/get url options))]
 
         (if-not (= status 200)

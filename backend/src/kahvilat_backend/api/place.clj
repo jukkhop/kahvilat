@@ -6,14 +6,14 @@
   (:use
    (kahvilat-backend.cache cache)
    (kahvilat-backend.constants headers)
-   (kahvilat-backend.lib scrape)))
+   (kahvilat-backend.lib scrape utils)))
 
 (defn place-handler [req]
   ; Handle request asynchronously using with-channel and send!
   ;
   ; Successful requests are cached using a time-to-live cache.
   (with-channel req chan
-    (go (let [id (-> req :params :id)
+    (go (let [id (-> req :query-string parse-qs :id)
               {:keys [status, body]} (cache-get id fetch-opening-hours)]
 
           (if-not (= status "OK")
