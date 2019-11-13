@@ -42,7 +42,7 @@
     {:info1 info1 :info2 info2 :open open}))
 
 (defn fetch-opening-hours [id]
-  "Attempts to fetch the opening hours by the given place id"
+  "Attempts to parse opening hours information for the given place id"
   (try
     (let [{:keys [body, reason-phrase, status]}
           (client/get (str scrape-url id))]

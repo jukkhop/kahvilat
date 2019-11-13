@@ -1,8 +1,6 @@
 (ns kahvilat-backend.cache.cache
-  (:require
-    [clojure.core.cache.wrapped :as c])
-  (:use
-    (kahvilat-backend.constants envs)))
+  (:require [clojure.core.cache.wrapped :as c])
+  (:use (kahvilat-backend.constants envs)))
 
 (defonce ^{:private true} cache (c/ttl-cache-factory {} :ttl cache-ttl))
 
