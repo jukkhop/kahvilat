@@ -39,6 +39,8 @@ workflows:
             container=${AWS_RESOURCE_NAME_PREFIX}-service,name=CACHE_TTL,value=${CACHE_TTL},
             container=${AWS_RESOURCE_NAME_PREFIX}-service,name=ORIGIN_URL,value=${ORIGIN_URL},
             container=${AWS_RESOURCE_NAME_PREFIX}-service,name=PORT,value=${PORT},
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=REDIS_PASSWORD,value=${REDIS_PASSWORD},
+            container=${AWS_RESOURCE_NAME_PREFIX}-service,name=REDIS_URI,value=${REDIS_URI},
             container=${AWS_RESOURCE_NAME_PREFIX}-service,name=SCRAPER_API_KEY,value=${SCRAPER_API_KEY}
           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
