@@ -12,6 +12,19 @@
        scraper-api-key
        "&url=https://www.facebook.com/"))
 
+(def selector
+  (s/child
+   (s/and
+    (s/class "_4-u2")
+    (s/class "_u9q")
+    (s/class "_3xaf")
+    (s/class "_4-u8"))
+   (s/and
+    (s/class "_2pi9")
+    (s/class "_2pi2"))
+   s/last-child
+   (s/class "_4bl9")))
+
 (defn- parse-status [info]
   (cond
     (includes? info "open now") :open
@@ -22,20 +35,8 @@
 
 (defn- parse-info [html]
   "Attempts to parse opening hours information from the given HTML"
-  (let [tree (as-hickory (parse html))
-        data (-> (s/select (s/child
-                            (s/and
-                             (s/class "_4-u2")
-                             (s/class "_u9q")
-                             (s/class "_3xaf")
-                             (s/class "_4-u8"))
-                            (s/and
-                             (s/class "_2pi9")
-                             (s/class "_2pi2"))
-                            s/last-child
-                            (s/class "_4bl9"))
-                           tree)
-                 last :content)
+  (let [tree (-> html parse as-hickory)
+        data (-> (s/select selector tree) last :content)
         info1 (-> data first :content first trim)
         info2 (-> data second :content first :content first trim)
         open (-> info2 lower-case parse-status)]

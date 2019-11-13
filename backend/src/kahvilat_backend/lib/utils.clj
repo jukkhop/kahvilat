@@ -4,5 +4,5 @@
    [ring.util.codec :refer [form-decode]]))
 
 (defn parse-qs [qs]
-  ; Parse parameters from a query string
+  "Parse parameters from a query string"
   (keywordize-keys (form-decode qs)))
