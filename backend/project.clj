@@ -2,6 +2,7 @@
 
   :dependencies [[caribou/clojure.walk2 "0.1.0"]
                  [clj-http "3.10.0"]
+                 [com.taoensso/carmine "2.19.1"]
                  [compojure "1.6.1"]
                  [environ "1.1.0"]
                  [hickory "0.7.1"]

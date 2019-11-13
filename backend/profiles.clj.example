@@ -1,14 +1,20 @@
 {:dev  {:env {:cache-ttl "10000"
               :origin-url "http://localhost:3449"
               :port "8080"
+              :redis-password "my_redis_password"
+              :redis-uri "my_redis_uri"
               :scraper-api-key "my_scraper_api_key"}}
 
- :test  {:env {:cache-ttl "60000"
+ :test  {:env {:cache-ttl "30000"
                :origin-url "http://localhost:3449"
                :port "8080"
+               :redis-password "my_redis_password"
+               :redis-uri "my_redis_uri"
                :scraper-api-key "my_scraper_api_key"}}
 
- :prod {:env {:cache-ttl "60000"
+ :prod {:env {:cache-ttl "30000"
               :origin-url "http://localhost:3449"
               :port "8080"
+              :redis-password "my_redis_password"
+              :redis-uri "my_redis_uri"
               :scraper-api-key "my_scraper_api_key"}}}

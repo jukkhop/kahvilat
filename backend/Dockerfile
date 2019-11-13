@@ -10,7 +10,7 @@ RUN lein deps
 
 COPY . /usr/src/app
 
-ENV CACHE_TTL 60000
+ENV CACHE_TTL 30000
 
 ENV ORIGIN_URL http://localhost:3449
 
