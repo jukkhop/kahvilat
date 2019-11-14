@@ -8,11 +8,12 @@ The backend's main purpose is to scrape data off Facebook, specifically the busi
 
 In order to deal with Facebook's scrape-prevention mechanisms, a third-party data-scraping service [Scraper API](https://www.scraperapi.com/) is used. This service automatically proxies the requests and bypasses any CATPCHAs.
 
-The backend does not use any sort of cache or persistent store for the scraped data, making the server essentially stateless. This does have repercussions regarding performance and scalability, which I've outlined in [#3](https://github.com/jukkhop/kahvilat/issues/3).
+The backend uses a time-to-live cache of 30 seconds. However, there are still performance and scalability issues with this approach, which I've outlined in [#3](https://github.com/jukkhop/kahvilat/issues/3).
 
 Following libraries have been used:
 
 - [http-kit](https://www.http-kit.org/) as a HTTP server
+- [core.cache](https://github.com/clojure/core.cache) for internal caching
 - [clj-http](https://github.com/dakrone/clj-http) as a HTTP client
 - [compojure](https://github.com/weavejester/compojure) for routing
 - [hickory](https://github.com/davidsantiago/hickory) for HTML parsing
