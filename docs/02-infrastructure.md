@@ -8,7 +8,7 @@ Both the backend and the frontend have fully automated CI/CD pipelines. The pipe
 
 ### Backend
 
-The backend is deployed to AWS ECS via CircleCI.
+The backend is Dockerized and deployed to AWS ECS using CircleCI.
 
 The pipeline works roughly as follows:
 
