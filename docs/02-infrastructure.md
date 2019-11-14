@@ -1,6 +1,9 @@
 
 ## Infrastructure
 
+![alt text](https://github.com/jukkhop/kahvilat/blob/master/docs/resources/architecture-old.png 'Architecture')
+
+
 Both the backend and the frontend have fully automated CI/CD pipelines. The pipelines are triggered by any new commits to the `master` branch.
 
 ### Backend
