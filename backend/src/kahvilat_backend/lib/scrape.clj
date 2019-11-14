@@ -34,7 +34,7 @@
     :else :error))
 
 (defn- parse-info [html]
-  "Attempts to parse opening hours information from the given HTML"
+  "Parses the opening hours information from the given HTML"
   (let [tree (-> html h/parse h/as-hickory)
         data (-> (s/select selector tree) last :content)
         info1 (-> data first :content first trim)
@@ -43,7 +43,7 @@
     {:info1 info1 :info2 info2 :open open}))
 
 (defn fetch-opening-hours [id]
-  "Attempts to parse opening hours information for the given place id"
+  "Attempts to fetch the opening hours by the given place id"
   (try
     (let [{:keys [body, reason-phrase, status]}
           (client/get (str scrape-url id))]

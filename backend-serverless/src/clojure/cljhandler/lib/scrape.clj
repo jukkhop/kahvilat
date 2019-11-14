@@ -34,7 +34,7 @@
     :else "error"))
 
 (defn- parse-info [html]
-  "Attempts to parse opening hours information from the given HTML"
+  "Parses the opening hours information from the given HTML"
   (let [tree (as-hickory (parse html))
         data (-> (s/select selector tree) last :content)
         info1 (-> data first :content first trim)
