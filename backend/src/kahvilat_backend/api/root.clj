@@ -4,6 +4,10 @@
   (:use
    (kahvilat-backend.constants headers)))
 
+(defn options-handler [req]
+  {:status 200
+   :headers all-headers})
+
 (defn root-handler [req]
   {:status 200
    :headers all-headers

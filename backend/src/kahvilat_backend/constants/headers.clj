@@ -6,8 +6,8 @@
   {"Content-Type" "application/json"})
 
 (def cors-headers
-  {"Access-Control-Allow-Headers" "Content-Type"
-   "Access-Control-Allow-Methods" "GET"
+  {"Access-Control-Allow-Headers" "Content-Type, X-Api-Key"
+   "Access-Control-Allow-Methods" "GET, OPTIONS"
    "Access-Control-Allow-Origin" origin-url})
 
 (def all-headers
