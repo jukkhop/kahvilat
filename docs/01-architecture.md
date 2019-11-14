@@ -13,9 +13,9 @@ The backend uses a time-to-live cache of 30 seconds. However, there are still pe
 Following libraries have been used:
 
 - [http-kit](https://www.http-kit.org/) as a HTTP server
+- [compojure](https://github.com/weavejester/compojure) for routing
 - [core.cache](https://github.com/clojure/core.cache) for internal caching
 - [clj-http](https://github.com/dakrone/clj-http) as a HTTP client
-- [compojure](https://github.com/weavejester/compojure) for routing
 - [hickory](https://github.com/davidsantiago/hickory) for HTML parsing
 - [environ](https://github.com/weavejester/environ) for managing environment variables
 
