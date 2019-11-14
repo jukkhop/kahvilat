@@ -2,7 +2,7 @@
   (:require
    [clj-http.client :as client]
    [clojure.string :as str :refer [includes? lower-case trim]]
-   [hickory.core :refer [as-hickory parse]]
+   [hickory.core :as h]
    [hickory.select :as s])
   (:use
    (kahvilat-backend.constants envs)))
@@ -35,7 +35,7 @@
 
 (defn- parse-info [html]
   "Attempts to parse opening hours information from the given HTML"
-  (let [tree (-> html parse as-hickory)
+  (let [tree (-> html h/parse h/as-hickory)
         data (-> (s/select selector tree) last :content)
         info1 (-> data first :content first trim)
         info2 (-> data second :content first :content first trim)
