@@ -4,7 +4,7 @@
 
 The backend is a vanilla Clojure application running on the JVM.
 
-The backend's main purpose is to scrape data off Facebook, specifically the business hours for a given cafeteria. This functionality is provided through the `api/v1/place/:id` endpoint, which fetches the given Facebook page and parses the desired data fields, and returns back a JSON that can be easily consumed by the frontend.
+The backend's main purpose is to scrape data off Facebook, specifically the business hours for a given cafeteria. The backend exposes an endpoint, which fetches the given Facebook page and parses the desired data fields, and returns back a JSON that can be easily consumed by the frontend.
 
 In order to deal with Facebook's scrape-prevention mechanisms, a third-party data-scraping service [Scraper API](https://www.scraperapi.com/) is used. This service automatically proxies the requests and bypasses any CATPCHAs.
 
