@@ -1,7 +1,5 @@
 (ns cljhandler.constants.envs
-  (:require
-   [clojure.string :refer [blank?]]
-   [environ.core :refer [env]]))
+  (:require [environ.core :refer [env]]))
 
 (def cache-ttl
   (let [value (or (:cache-ttl env) "30000")]

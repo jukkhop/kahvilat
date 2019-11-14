@@ -1,4 +1,3 @@
-
 ## Architecture
 
 ### Backend
@@ -25,7 +24,7 @@ The frontend is a ClojureScript application built on top of [Reagent](https://gi
 
 The frontend's main purpose is to take a predefined list of cafeterias, use the backend to fetch their current status and business hours, and update that information on the page.
 
-After the initial render, the application continues to refresh the list every 60 seoncds. This is done because the scraped data is simply rendered as-is and not parsed in any meaningful way, meaning the information becomes outdated very quickly.
+After the initial render, the application continues to refresh the list every 60 seconds. This is done because the scraped data is simply rendered as-is and not parsed in any meaningful way, meaning the information becomes outdated very quickly.
 
 The fetches are done via [cljs-http](https://github.com/r0man/cljs-http) and are carried out asynchronously with the facilities provided by [core.async](https://github.com/clojure/core.async).
 
