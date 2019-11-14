@@ -25,7 +25,8 @@
                            :open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler {:asset-path "js/compiled/out"
-                           :closure-defines {kahvilat-frontend.constants/backend-endpoint "http://localhost:8080/api/v1"
+                           :closure-defines {kahvilat-frontend.constants/backend-api-key "my_backend_api_key"
+                                             kahvilat-frontend.constants/backend-endpoint "http://localhost:8080/api/v1"
                                              kahvilat-frontend.constants/initial-delay "60"}
                            :main kahvilat-frontend.app
                            :output-dir "resources/public/js/compiled/out"
@@ -35,7 +36,8 @@
 
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:closure-defines {kahvilat-frontend.constants/backend-endpoint #=(eval (or (System/getenv "BACKEND_ENDPOINT") ""))
+                :compiler {:closure-defines {kahvilat-frontend.constants/backend-api-key #=(eval (or (System/getenv "BACKEND_API_KEY") ""))
+                                             kahvilat-frontend.constants/backend-endpoint #=(eval (or (System/getenv "BACKEND_ENDPOINT") ""))
                                              kahvilat-frontend.constants/initial-delay #=(eval (or (System/getenv "INITIAL_DELAY") ""))}
                            :optimizations :advanced
                            :output-to "resources/public/js/compiled/kahvilat_frontend.js"

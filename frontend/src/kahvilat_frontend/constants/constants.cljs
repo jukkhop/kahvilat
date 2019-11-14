@@ -1,5 +1,6 @@
 (ns kahvilat-frontend.constants)
 
+(goog-define backend-api-key "Missing environment variable `BACKEND_API_KEY`")
 (goog-define backend-endpoint "Missing environment variable `BACKEND_ENDPOINT`")
 (goog-define initial-delay "Missing environment variable `INITIAL_DELAY`")
 

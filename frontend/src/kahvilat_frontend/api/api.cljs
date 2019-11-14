@@ -3,11 +3,14 @@
    [cljs-http.client :as http]
    [cljs.core.async :refer [chan <!]]
    [clojure.string :as str]
-   [kahvilat-frontend.constants :refer [backend-endpoint]])
+   [kahvilat-frontend.constants :refer [backend-api-key backend-endpoint]])
   (:require-macros
    [cljs.core.async.macros :refer [go]]))
 
-(def options {:keepalive 10000 :timeout 30000 :with-credentials? false})
+(def options {:headers {"X-Api-Key" backend-api-key}
+              :keepalive 10000
+              :timeout 30000
+              :with-credentials? false})
 
 (defn- parse-open [open]
   (case open
