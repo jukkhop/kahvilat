@@ -11,11 +11,5 @@
 (def port
   (-> :port env Integer/parseInt))
 
-(def redis-password
-  (env :redis-password))
-
-(def redis-uri
-  (env :redis-uri))
-
 (def scraper-api-key
   (env :scraper-api-key))

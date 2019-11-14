@@ -1,4 +1,4 @@
-(ns kahvilat-backend.cache.core
+(ns kahvilat-backend.cache.cache
   (:require [clojure.core.cache.wrapped :as c])
   (:use (kahvilat-backend.constants envs)))
 
