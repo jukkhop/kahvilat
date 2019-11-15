@@ -6,7 +6,7 @@
    (kahvilat-backend.api root place)))
 
 (defroutes all-routes
-  (OPTIONS "*" [] options-handler)
+  (OPTIONS "/api/v1*" [] options-handler)
   (GET "/api/v1" [] root-handler)
   (GET "/api/v1/place" [] place-handler)
   (not-found "Not found"))
